@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from .managers import UserManager
 
 
-class User(models.Model):
+class User(PermissionsMixin, AbstractBaseUser):
     email = models.EmailField(_('email address'), unique=True)
     firstname = models.CharField(_('firstname'), max_length=30)
     lastname = models.CharField(_('lastname'), max_length=30)
@@ -23,7 +23,7 @@ class User(models.Model):
 
     class Meta:
         verbose_name = _('user')
-        verbose_name_prural = _('users')
+        verbose_name_plural = _('users')
 
     def get_full_name(self):
         full_name = f'{self.firstname} {self.lastname}'
