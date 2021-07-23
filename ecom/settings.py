@@ -44,7 +44,8 @@ INSTALLED_APPS = [
 
     'main.apps.MainConfig',
     'users.apps.UsersConfig',
-    'ariadne.contrib.django'
+    'ariadne.contrib.django',
+    'cart'
 ]
 
 MIDDLEWARE = [
