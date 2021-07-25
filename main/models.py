@@ -29,12 +29,20 @@ class SubCategory(models.Model):
         return self.name
 
 
+class SearchTags(models.Model):
+    tag = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.tag
+
+
 class Product(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    tag = models.ManyToManyField(SearchTags)
     price = models.FloatField()
-    discout = models.FloatField(default=0)
-    image = models.ImageField(upload_to= 'product images')
+    discount = models.FloatField(default=0)
+    image = models.ImageField(upload_to='product images')
     description = models.TextField()
 
     def __str__(self):

@@ -3,13 +3,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
     <script src="{% static 'js css/axios.min.js' %}"></script>
     <script src="{% static 'js css/vue.js' %}"></script>
     <link rel="stylesheet" href="{% static 'js css/bootstrap.min.css' %}">
 </head>
 <body>
+    <div>
 
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
 
     <script src="{% static 'js css/bootstrap.bundle.min.js' %}"></script>
 </body>
