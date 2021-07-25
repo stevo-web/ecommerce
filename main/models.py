@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import base
 
 from users.models import User
 
@@ -37,6 +36,7 @@ class SearchTags(models.Model):
 
 
 class Product(models.Model):
+    name = models.CharField(max_length=40)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     tag = models.ManyToManyField(SearchTags)
