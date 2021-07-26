@@ -16,6 +16,8 @@ class User(PermissionsMixin, AbstractBaseUser):
     is_active = models.BooleanField(_('active'), default=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_staff = models.BooleanField(_('staff'), default=False)
+    location = models.CharField(_('location'), max_length=100)
+    phone = models.CharField(_('phone'), max_length=20)
 
     objects = UserManager()
 

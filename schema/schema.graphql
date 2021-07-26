@@ -1,4 +1,12 @@
 
 type Query {
-    hello(name: String!): String
+    allCounties: [County!]!
+    county(code: Int!): County
+}
+
+type County {
+    name: String
+    code: Int
+    capital: String
+    sub_counties: [String]
 }
