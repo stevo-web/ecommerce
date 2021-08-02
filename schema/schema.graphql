@@ -2,6 +2,19 @@
 type Query {
     allCounties: [County!]!
     county(code: Int!): County
+    allProducts: [Product!]!
+    product(ProdId: Int): Product
+}
+
+type Product {
+    id: Int
+    name: String
+    price: Float
+    discount: Float
+    description: String
+    category: String
+    image: String
+
 }
 
 type County {

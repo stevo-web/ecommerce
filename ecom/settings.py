@@ -144,6 +144,10 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#site domain
+
+SITE_DOMAIN = os.getenv('SITE_DOMAIN')
+
 # Admin Mail
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
