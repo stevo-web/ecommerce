@@ -4,6 +4,19 @@ type Query {
     county(code: Int!): County
     allProducts: [Product!]!
     product(ProdId: Int): Product
+    allCategories: [Category!]!
+    allSubCategories(id: Int): [SubCategory!]!
+}
+
+type SubCategory {
+    id: Int
+    name: String
+    products: [Product]
+}
+
+type Category {
+    id: Int
+    name: String!
 }
 
 type Product {
