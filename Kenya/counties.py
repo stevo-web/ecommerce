@@ -17,7 +17,7 @@ counties = [
         "capital": "Bomet",
         "code": 36,
         "sub_counties": [
-            "Bomet central",k
+            "Bomet central",
             "Bomet east",
             "Chepalungu",
             "Konoin",
