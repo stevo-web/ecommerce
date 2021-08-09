@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="{% static 'js css/bootstrap.min.css' %}">
 </head>
 <body>
-    <div>
-
+    <div id="app">
+    {% include '_nav.html' %}
         {% block content %}
 
         {% endblock %}
 
     </div>
 
+    <script src="{% static 'app.js' %}"></script>
     <script src="{% static 'js css/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
