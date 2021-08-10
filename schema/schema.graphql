@@ -6,6 +6,8 @@ type Query {
     product(ProdId: Int): Product
     allCategories: [Category!]!
     allSubCategories(id: Int): [SubCategory!]!
+
+    cartCount: Int!
 }
 
 type SubCategory {

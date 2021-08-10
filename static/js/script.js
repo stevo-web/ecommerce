@@ -1,6 +1,6 @@
 $(function() {
 
-    $('.toast').toast('show');
+    // $('.toast').toast('show');
 
     $('.nav-item.dropdown').mouseenter(function() {
         $(this).addClass('show');

@@ -50,34 +50,7 @@
                         <div class="row">
                             {% for product in products %}
                             <!-- Product -->
-                            <div class="col-lg-3 col-sm-6 my-3">
-                                <div class="col-12 bg-white text-center h-100 product-item">
-                                    <div class="row h-100">
-                                        <div class="col-12 p-0 mb-3">
-                                            <a href="products/{{ product.id }}">
-                                                <img src="{{ product.image.url }}" class="img-fluid">
-                                            </a>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <a href="products/{{ product.id }}" class="product-name">{{ product.name }}</a>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <span class="product-price-old">
-                                                {% if product.discount > 0.0 %}
-                                                    ksh {{ product.discount }}
-                                                {% endif %}
-                                            </span>
-                                            <br>
-                                            <span class="product-price">
-                                               ksh {{ product.price }}
-                                            </span>
-                                        </div>
-                                        <div class="col-12 mb-3 align-self-end">
-                                            <button class="btn btn-outline-dark" type="button"><i class="fas fa-cart-plus me-2"></i>Add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                {% include 'partials/product.html' %}
                             {% endfor %}
                             <!-- Product -->
 
@@ -109,12 +82,12 @@
                                     <span class="new">New</span>
                                     <div class="row h-100">
                                         <div class="col-12 p-0 mb-3">
-                                            <a href="products/{{ product.id }}">
+                                            <a href="{% url 'products' product.id %}">
                                                 <img src="{{ product.image.url }}" class="img-fluid">
                                             </a>
                                         </div>
                                         <div class="col-12 mb-3">
-                                            <a href="products/{{ product.id }}" class="product-name">{{ product.name }}</a>
+                                            <a href="{% url 'products' product.id %}" class="product-name">{{ product.name }}</a>
                                         </div>
                                         <div class="col-12 mb-3">
                                             <span class="product-price-old">
@@ -128,7 +101,7 @@
                                             </span>
                                         </div>
                                         <div class="col-12 mb-3 align-self-end">
-                                            <button class="btn btn-outline-dark" type="button"><i class="fas fa-cart-plus me-2"></i>Add to cart</button>
+                                            <button class="btn btn-outline-dark" v-on:click="addToCart({{ product.id }}, 1)" type="button"><i class="fas fa-cart-plus me-2"></i>Add to cart</button>
                                         </div>
                                     </div>
                                 </div>

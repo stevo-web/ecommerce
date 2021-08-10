@@ -69,6 +69,7 @@ def resolve_product(obj, info, prod_id):
         "price": prod.price,
     }
 
+
 # cart mutation resolvers
 
 
