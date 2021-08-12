@@ -13,7 +13,23 @@ def resolve_all_categories(obj, info):
     return [
         {
             "id": cat.id,
-            "name": cat.name
+            "name": cat.name,
+            "sub_category": [
+                {
+                    "id": sub.id,
+                    "name": sub.name,
+                    "products": [
+                        {
+                            "id": prod.id,
+                            "name": prod.name,
+                            "description": prod.description,
+                            "image": f'{settings.SITE_DOMAIN}{prod.image.url}',
+                            "discount": prod.discount,
+                            "price": prod.price,
+                        } for prod in Product.objects.filter(category_id=sub.id)
+                    ]
+                }for sub in SubCategory.objects.filter(category_id=cat.id)
+            ]
         }for cat in categories
     ]
 
@@ -68,9 +84,6 @@ def resolve_product(obj, info, prod_id):
         "discount": prod.discount,
         "price": prod.price,
     }
-
-
-# cart mutation resolvers
 
 
 resolvers = [query, snake_case_fallback_resolvers]

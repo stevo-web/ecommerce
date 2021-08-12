@@ -13,22 +13,30 @@
                     <div class="row">
                         <div class="col-12 py-3">
                             <div class="row">
-                                <div class="col-12 text-center text-uppercase">
-                                    <h2>{{ category.name }}</h2>
+                                <div class="col-12 text-center">
+                                    {% if search_key and not nothing %}
+                                        <h2>Results for {{ search_key }} </h2>
+                                    {% else %}
+                                        <h2> Nothing found </h2>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row">
+                            {% if nothing %}
+                                <p></p>
+                            {% else %}
+                                <!-- Product -->
                                 {% for product in products %}
-                                <!-- Product -->
                                     {% include 'partials/product.html' %}
-                                <!-- Product -->
                                 {% endfor %}
+                                <!-- Product -->
+                            {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Category Products -->
-
+{##}
 {#                <div class="col-12">#}
 {#                    <nav aria-label="Page navigation example">#}
 {#                        <ul class="pagination justify-content-center">#}

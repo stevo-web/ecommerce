@@ -4,21 +4,33 @@ const app = new Vue({
     delimiters: ['[[', ']]'],
     data: {
         message: 'this is working',
-        url: 'http://localhost:8000',
         added: false,
         quantity: null,
         cart: {
             count: null,
             summary: null
         },
+        categories: [],
         products: []
     },
     mounted(){
+        this.getCategories()
         this.getCart()
     },
     methods: {
+        getCategories: async function() {
+            const res = await axios.post('/graphql/', {
+                query: `{allCategories{id name sub_category{id name}}}`
+            });
+            this.categories = res.data.data.allCategories;
+        },
+
+        toCategory: function(cat_id, sub_id) {
+          window.location.href = `/category/${cat_id}`
+        },
+
         getCart: async function() {
-            const res = await axios(`${this.url}/cart/api`)
+            const res = await axios.get(`/cart/api`)
             let cart = res.data.split(" ")
             this.cart.count = cart[0]
             this.cart.summary = cart[1]

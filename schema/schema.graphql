@@ -6,19 +6,18 @@ type Query {
     product(ProdId: Int): Product
     allCategories: [Category!]!
     allSubCategories(id: Int): [SubCategory!]!
+}
 
-    cartCount: Int!
+type Category {
+    id: Int
+    name: String!
+    sub_category: [SubCategory!]!
 }
 
 type SubCategory {
     id: Int
     name: String
     products: [Product]
-}
-
-type Category {
-    id: Int
-    name: String!
 }
 
 type Product {
