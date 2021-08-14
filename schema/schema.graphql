@@ -6,6 +6,20 @@ type Query {
     product(ProdId: Int): Product
     allCategories: [Category!]!
     allSubCategories(id: Int): [SubCategory!]!
+    cart: Cart!
+}
+
+type Cart{
+    count: Int
+    summary: Float
+    items: [Item]
+}
+
+type Item {
+    quantity: Int
+    unitPrice: Float
+    totalPrice: Float
+    product: Product
 }
 
 type Category {

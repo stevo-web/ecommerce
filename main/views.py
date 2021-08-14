@@ -116,7 +116,8 @@ def search(request):
 # Cart Views
 def cart_list(request):
     context = {}
-
+    cart = Cart(request)
+    context["cart"] = cart
     return render(request, 'cart.html', context)
 
 
@@ -133,6 +134,7 @@ def cart_api(request):
 def add_to_cart(request, prod_id, quantity):
     context = {}
     cart = Cart(request)
+    cart
     product = Product.objects.get(pk=prod_id)
     cart.add(product, product.price, quantity)
     return HttpResponse("successful")

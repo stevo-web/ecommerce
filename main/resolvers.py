@@ -86,4 +86,35 @@ def resolve_product(obj, info, prod_id):
     }
 
 
+#product helper function()
+def getProd(id):
+    prod = Product.objects.get(pk=id)
+    return {
+        "id": prod.id,
+        "name": prod.name,
+        "description": prod.description,
+        "image": f'{settings.SITE_DOMAIN}{prod.image.url}',
+        "discount": prod.discount,
+        "price": prod.price,
+    }
+
+@query.field('cart')
+def resolve_cart(_, info):
+    request = info.context["request"]
+    cart = Cart(request)
+
+    return {
+        "count": cart.count(),
+        "summary": cart.summary(),
+        "items": [
+            {
+                "quantity": item.quantity,
+                "unitPrice": item.unit_price,
+                "totalPrice": item.total_price,
+                "product": getProd(item.product.id)
+            } for item in cart
+        ]
+    }
+
+
 resolvers = [query, snake_case_fallback_resolvers]

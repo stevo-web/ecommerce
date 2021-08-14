@@ -6,10 +6,7 @@ const app = new Vue({
         message: 'this is working',
         added: false,
         quantity: null,
-        cart: {
-            count: null,
-            summary: null
-        },
+        cart: null,
         categories: [],
         products: []
     },
@@ -30,10 +27,15 @@ const app = new Vue({
         },
 
         getCart: async function() {
-            const res = await axios.get(`/cart/api`)
-            let cart = res.data.split(" ")
-            this.cart.count = cart[0]
-            this.cart.summary = cart[1]
+            const res = await axios.post('/graphql/', {
+                query: `{
+                          cart{
+                            count
+                            summary
+                          }
+                        }`
+            });
+            this.cart = res.data.data.cart;
         },
 
         addToCart: async function (id, quantity) {
