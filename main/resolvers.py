@@ -1,9 +1,10 @@
-from ariadne import QueryType, convert_kwargs_to_snake_case, snake_case_fallback_resolvers
+from ariadne import QueryType, MutationType, convert_kwargs_to_snake_case, snake_case_fallback_resolvers
 from django.conf import settings
 from cart.cart import Cart
 from .models import Product, SubCategory, Category
 
 query = QueryType()
+mutation = MutationType()
 
 
 @query.field('allCategories')
@@ -55,7 +56,6 @@ def resolve_all_sub_categories(obj, info, id):
     ]
 
 
-
 @query.field('allProducts')
 def resolve_all_products(obj, info):
     products = Product.objects.all()
@@ -86,8 +86,7 @@ def resolve_product(obj, info, prod_id):
     }
 
 
-#product helper function()
-def getProd(id):
+def get_prod(id):
     prod = Product.objects.get(pk=id)
     return {
         "id": prod.id,
@@ -97,6 +96,7 @@ def getProd(id):
         "discount": prod.discount,
         "price": prod.price,
     }
+
 
 @query.field('cart')
 def resolve_cart(_, info):
@@ -109,12 +109,36 @@ def resolve_cart(_, info):
         "items": [
             {
                 "quantity": item.quantity,
-                "unitPrice": item.unit_price,
-                "totalPrice": item.total_price,
-                "product": getProd(item.product.id)
+                "unit": item.unit_price,
+                "total": item.total_price,
+                "product": get_prod(item.product.id)
             } for item in cart
         ]
     }
 
 
-resolvers = [query, snake_case_fallback_resolvers]
+@mutation.field('addToCart')
+@convert_kwargs_to_snake_case
+def resolve_add_to_cart(_, info, prod_id, quantity):
+    request = info.context['request']
+    cart = Cart(request)
+    prod = Product.objects.get(pk=prod_id)
+    cart.add(product=prod, unit_price=prod.price, quantity=quantity)
+    return {
+        "success": True
+    }
+
+
+@mutation.field('removeItem')
+@convert_kwargs_to_snake_case
+def resolve_remove_item(_, info, prod_id):
+    request = info.context["request"]
+    cart = Cart(request)
+    prod = Product.objects.get(pk=prod_id)
+    cart.remove(prod)
+    return {
+        "success": True
+    }
+
+
+resolvers = [query, mutation, snake_case_fallback_resolvers]

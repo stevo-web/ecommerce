@@ -119,22 +119,3 @@ def cart_list(request):
     cart = Cart(request)
     context["cart"] = cart
     return render(request, 'cart.html', context)
-
-
-def cart_api(request):
-    cart = Cart(request)
-    context = {
-        "count": cart.count(),
-        "summary": cart.summary()
-    }
-
-    return HttpResponse(f'{context["count"]} {context["summary"]}')
-
-
-def add_to_cart(request, prod_id, quantity):
-    context = {}
-    cart = Cart(request)
-    cart
-    product = Product.objects.get(pk=prod_id)
-    cart.add(product, product.price, quantity)
-    return HttpResponse("successful")

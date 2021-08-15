@@ -9,6 +9,11 @@ type Query {
     cart: Cart!
 }
 
+type Mutation {
+    addToCart(prodId: Int quantity: Int): addPayload!
+    removeItem(prodId: Int): removeItemPayload
+}
+
 type Cart{
     count: Int
     summary: Float
@@ -17,8 +22,8 @@ type Cart{
 
 type Item {
     quantity: Int
-    unitPrice: Float
-    totalPrice: Float
+    unit: Float
+    total: Float
     product: Product
 }
 
@@ -50,4 +55,12 @@ type County {
     code: Int
     capital: String
     sub_counties: [String]
+}
+
+type addPayload {
+    success: Boolean
+}
+
+type removeItemPayload {
+    success: Boolean
 }
