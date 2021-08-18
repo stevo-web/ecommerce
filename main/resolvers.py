@@ -108,6 +108,7 @@ def resolve_cart(_, info):
         "summary": cart.summary(),
         "items": [
             {
+                "id": item.id,
                 "quantity": item.quantity,
                 "unit": item.unit_price,
                 "total": item.total_price,
@@ -136,6 +137,18 @@ def resolve_remove_item(_, info, prod_id):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
     cart.remove(prod)
+    return {
+        "success": True
+    }
+
+
+@mutation.field('update')
+@convert_kwargs_to_snake_case
+def resolve_update(_, info, prod_id, quantity):
+    request = info.context["request"]
+    cart = Cart(request)
+    prod = Product.objects.get(pk=prod_id)
+    cart.update(prod, quantity, prod.price)
     return {
         "success": True
     }

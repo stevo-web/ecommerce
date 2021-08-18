@@ -12,6 +12,7 @@ type Query {
 type Mutation {
     addToCart(prodId: Int quantity: Int): addPayload!
     removeItem(prodId: Int): removeItemPayload
+    update(prodId: Int quantity: Int): updateCartPayload
 }
 
 type Cart{
@@ -21,6 +22,7 @@ type Cart{
 }
 
 type Item {
+    id: Int
     quantity: Int
     unit: Float
     total: Float
@@ -62,5 +64,9 @@ type addPayload {
 }
 
 type removeItemPayload {
+    success: Boolean
+}
+
+type updateCartPayload {
     success: Boolean
 }

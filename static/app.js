@@ -58,6 +58,15 @@ const app = new Vue({
                 }
             });
             await this.getCart()
+        },
+        updateCart: async function(id, quantity){
+            const res = await axios.post('/graphql/', {
+                query: `mutation($prodId:Int,$quantity:Int){update(prodId:$prodId,quantity:$quantity){success}}`,
+                variables: {
+                    prodId: id,
+                    quantity: parseInt(quantity)
+                }
+            })
         }
     }
 
