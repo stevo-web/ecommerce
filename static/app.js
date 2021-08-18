@@ -8,11 +8,13 @@ const app = new Vue({
         quantity: 1,
         cart: { },
         categories: [],
-        products: []
+        products: [],
+        counties: []
     },
     mounted(){
-        this.getCategories()
-        this.getCart()
+        this.getCategories();
+        this.getCart();
+        this.getCounties();
     },
     methods: {
         getCategories: async function() {
@@ -67,7 +69,12 @@ const app = new Vue({
                     quantity: parseInt(quantity)
                 }
             })
+        },
+        getCounties: async function(){
+            const res = await axios.post('/graphql/', {
+                query: `{allCounties{code name}}`,
+            });
+            this.counties = res.data.data.allCounties;
         }
     }
-
 });
