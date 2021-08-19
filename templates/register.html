@@ -14,53 +14,50 @@
                     <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3 mb-4">
                         <div class="row">
                             <div class="col-12">
-                                <form method="POST">
-                                    {% csrf_token %}
+                                <div>
                                     <div class="mb-3">
                                         <label for="name">Firstname</label>
-                                        <input type="text" name="firstname" class="form-control" required>
+                                        <input type="text" name="firstname" v-model="user.firstname" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="name">Lastname</label>
-                                        <input type="text" name="Lastname" class="form-control" required>
+                                        <input type="text" name="Lastname" v-model="user.lastname" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" required>
+                                        <input type="email" name="email" v-model="user.email" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="name">Phone</label>
-                                        <input type="text" name="phone" class="form-control" required>
+                                        <input type="text" name="phone" v-model="user.phone" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="name">Location</label>
-                                        <select name="location" class="form-control">
-                                                <option v-for="county in counties" :value="[[county.name]]">[[ county.name ]]</option>
+                                        <select name="location" class="form-control" v-model="user.location">
+                                                <option v-for="county in counties" v-bind:value="[[county.name]]">[[ county.name ]]</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="password">Password</label>
-                                        <input type="password" name="password" class="form-control" required>
+                                        <input type="password" name="password" v-model="user.password" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="password-confirm">Confirm Password</label>
-                                        <input type="password" name="password1" class="form-control" required>
+                                        <input type="password" name="password1" v-on:keyup="checkpass()" v-model="user.password1" class="form-control" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="password-confirm">Image</label>
-                                        <input type="file" accept="image/*" name="image" class="form-control" required>
-                                    </div>
-
 {#                                    <div class="mb-3">#}
 {#                                        <div class="form-check">#}
 {#                                            <input type="checkbox" id="agree" class="form-check-input" required>#}
 {#                                            <label for="agree" class="form-check-label ml-2">I agree to Terms and Conditions</label>#}
 {#                                        </div>#}
 {#                                    </div>#}
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-outline-dark">Register</button>
+                                    <div class="sm">
+                                        <small class="text-danger sm">[[ message ]]</small>
                                     </div>
-                                </form>
+                                    <div class="form-group">
+                                        <button type="button" v-on:click="register()" class="btn btn-outline-dark">Register</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

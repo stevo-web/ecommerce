@@ -3,13 +3,22 @@ const app = new Vue({
     el: "#app",
     delimiters: ['[[', ']]'],
     data: {
-        message: 'this is working',
+        message: '',
         added: false,
         quantity: 1,
         cart: { },
         categories: [],
         products: [],
-        counties: []
+        counties: [],
+        user: {
+            firstname: null,
+            lastname: null,
+            email: null,
+            phone: null,
+            location: null,
+            password: null,
+            password1: null
+        }
     },
     mounted(){
         this.getCategories();
@@ -75,6 +84,29 @@ const app = new Vue({
                 query: `{allCounties{code name}}`,
             });
             this.counties = res.data.data.allCounties;
+        },
+        checkpass: function() {
+            if(this.user.password1 !== this.user.password){
+                this.message = 'passwords do not match!!'
+            }else{
+                this.message = ''
+            }
+        },
+        register: async function(){
+            const res = await axios.post('/graphql/', {
+                query: `mutation($firstname:String! $lastname:String! $email:String! $location:String! $phone:String! $image:Upload $password:String!){register(firstname:$firstname lastname:$lastname email:$email location:$location phone:$phone password:$password image:$image){success}}`,
+                variables: {
+                    firstname: this.user.firstname,
+                    lastname: this.user.lastname,
+                    email: this.user.email,
+                    location: this.user.location[0][0],
+                    phone: this.user.phone,
+                    password: this.user.password
+                }
+            });
+            if(res.data.data.register.success === true){
+                window.location.href = "/users/login";
+            }
         }
     }
 });

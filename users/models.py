@@ -12,7 +12,7 @@ class User(PermissionsMixin, AbstractBaseUser):
     email = models.EmailField(_('email address'), unique=True)
     firstname = models.CharField(_('firstname'), max_length=30)
     lastname = models.CharField(_('lastname'), max_length=30)
-    image = models.ImageField(upload_to="user images")
+    image = models.ImageField(upload_to="user images", blank=True, null=True)
     is_active = models.BooleanField(_('active'), default=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_staff = models.BooleanField(_('staff'), default=False)

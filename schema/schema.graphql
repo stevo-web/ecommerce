@@ -1,3 +1,4 @@
+scalar Upload
 
 type Query {
     allCounties: [County!]!
@@ -13,6 +14,15 @@ type Mutation {
     addToCart(prodId: Int quantity: Int): addPayload!
     removeItem(prodId: Int): removeItemPayload
     update(prodId: Int quantity: Int): updateCartPayload
+    register(
+        firstname: String!
+        lastname: String!
+        email: String!
+        location: String!
+        phone: String!
+        image: Upload
+        password: String!
+    ):registerPayload
 }
 
 type Cart{
@@ -68,5 +78,8 @@ type removeItemPayload {
 }
 
 type updateCartPayload {
+    success: Boolean
+}
+type registerPayload {
     success: Boolean
 }
