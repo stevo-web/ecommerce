@@ -44,17 +44,13 @@
                                     <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                                 </li>
 
-                                <div v-for="category in categories">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="electronics" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[[ category.name ]]</a>
-                                    <div class="dropdown-menu" aria-labelledby="category.name">
-                                        <div v-for="sub in category.sub_category">
-                                            <a class="dropdown-item" v-on:click="toCategory(sub.id)">[[ sub.name ]]</a>
-                                        </div>
-                                    </div>
+                                    <a class="nav-link" href="{% url 'home' %}"> Products <span class="sr-only">(current)</span></a>
                                 </li>
-                                </div>
 
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="{% url 'home' %}">Events <span class="sr-only">(current)</span></a>
+                                </li>
                             </ul>
                         </div>
                     </nav>

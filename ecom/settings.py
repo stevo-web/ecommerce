@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'main.apps.MainConfig',
     'users.apps.UsersConfig',
+    'shop.apps.ShopConfig',
     'ariadne.contrib.django',
     'cart',
     'corsheaders',
