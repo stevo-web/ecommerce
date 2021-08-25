@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% include 'partials/nav.html' %}
+
+               <div class="col-12">
+                <!-- Main Content -->
+                <div class="row">
+                    <div class="col-12 mt-3 text-center text-uppercase">
+                        <h2>Create Your Shop.</h2>
+                    </div>
+                </div>
+
+                <main class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3 mb-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                        <div class="mb-4 form-md">
+                                            <label>{{ field.label }}:</label>
+                                            {{ field }}
+                                        </div>
+                                    {% endfor %}
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-outline-primary"> Create Shop</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+                <!-- Main Content -->
+            </div>
+
+{% endblock %}

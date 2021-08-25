@@ -3,6 +3,7 @@ import json
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from django.template import context
+from django.contrib.auth.decorators import login_required
 
 from cart.cart import Cart
 from .models import *
@@ -114,8 +115,14 @@ def search(request):
 
 
 # Cart Views
+@login_required(login_url='login')
 def cart_list(request):
     context = {}
     cart = Cart(request)
     context["cart"] = cart
     return render(request, 'cart.html', context)
+
+@login_required(login_url='login')
+def checkout(request):
+    context = {}
+    return render(request, 'checkout.html', context)

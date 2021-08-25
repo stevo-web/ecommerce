@@ -18,6 +18,7 @@ class User(PermissionsMixin, AbstractBaseUser):
     is_staff = models.BooleanField(_('staff'), default=False)
     location = models.CharField(_('location'), max_length=100)
     phone = models.CharField(_('phone'), max_length=20)
+    has_shop = models.BooleanField(_('shop'), default=False)
 
     objects = UserManager()
 

@@ -10,7 +10,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('graphql/', csrf_exempt(GraphQLView.as_view(schema=schema))),
     path('', include('main.urls')),
-    path('users/', include('users.urls'))
+    path('users/', include('users.urls')),
+    path('shop/', include('shop.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
