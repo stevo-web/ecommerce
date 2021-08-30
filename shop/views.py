@@ -1,7 +1,11 @@
 from django.shortcuts import redirect, render
+from main.models import Product, SubCategory
+from django.http.response import HttpResponse
+from main.forms import AddProduct
+from main.models import Product
 from .forms import CreateShop
 from .models import Shop
-from django.http.response import HttpResponse
+
 
 def sell(request):
     context = {}
@@ -23,4 +27,21 @@ def sell(request):
 
 
 def dashboard(request):
-    return HttpResponse('got here good')
+    context = {}
+    return render(request, 'shop/index.html')
+
+
+def products(request):
+    context = {}
+    owner = request.user
+    shop = Shop.objects.get(owner_id=owner.id)
+    prods = Product.objects.filter(shop_id=shop.id)
+    context["prods"] = prods
+
+    return render(request, 'shop/products.html', context)
+
+
+def add_product(request):
+    context = {}
+
+    return render(request, 'shop/add-product.html', context)

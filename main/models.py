@@ -18,18 +18,10 @@ class SubCategory(models.Model):
         return self.name
 
 
-class SearchTags(models.Model):
-    tag = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.tag
-
-
 class Product(models.Model):
     name = models.CharField(max_length=40)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(SearchTags)
     price = models.FloatField()
     discount = models.FloatField(default=0)
     image = models.ImageField(upload_to='product images')

@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 
 
 class Shop(models.Model):
-    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    owner = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, unique=True, related_name="owner")
     name = models.CharField(max_length=50)
     sale = models.CharField(max_length=10, choices=(
         ('services', 'services'),

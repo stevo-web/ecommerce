@@ -1,11 +1,10 @@
 from django.contrib import admin
 
-from . models import Shop, Category, SubCategory, SearchTags, Product, OrderItem, Order
+from . models import Shop, Category, SubCategory, Product, OrderItem, Order
 
 admin.site.register(Shop)
 admin.site.register(Category)
 admin.site.register(SubCategory)
-admin.site.register(SearchTags)
 admin.site.register(Product)
 admin.site.register(OrderItem)
 admin.site.register(Order)
