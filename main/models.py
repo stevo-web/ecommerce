@@ -30,6 +30,7 @@ class Product(models.Model):
     image4 = models.ImageField(upload_to="product images", blank=True, null=True)
     description_title = models.TextField(blank=True, null=True)
     description = models.TextField()
+    created_at = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name

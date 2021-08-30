@@ -31,7 +31,7 @@
 
                                     <tr>
                                         <td>
-                                            <img v-bind:src="[[ item.product.image   ]]" class="img-fluid">
+                                            <img v-bind:src="[[ item.product.image ]]" class="img-fluid">
                                             [[ item.product.name ]]
                                         </td>
                                         <td>
@@ -59,7 +59,7 @@
                                 </table>
                             </div>
                             <div class="col-12 text-right">
-                                <a href="#" class="btn btn-outline-success">Checkout</a>
+                                <a href="{% url 'checkout' %}" class="btn btn-outline-success">Checkout</a>
                             </div>
                         </div>
                     </div>

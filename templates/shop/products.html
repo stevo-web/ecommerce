@@ -25,9 +25,9 @@
                     <td class="tm-product-name">{{ product.name }}</td>
                     <td>{{ product.price }}</td>
                     <td>{{ product.discount }}</td>
-                    <td>28 March 2019</td>
+                    <td>{{ product.created_at }}</td>
                     <td>
-                      <a href="#" class="tm-product-delete-link">
+                      <a href="{% url 'delete-product' product.id %}" class="tm-product-delete-link">
                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
                       </a>
                     </td>

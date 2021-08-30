@@ -122,7 +122,10 @@ def cart_list(request):
     context["cart"] = cart
     return render(request, 'cart.html', context)
 
+
 @login_required(login_url='login')
 def checkout(request):
     context = {}
+    cart = Cart(request)
+    context['cart'] = cart
     return render(request, 'checkout.html', context)

@@ -45,6 +45,8 @@ def add_product(request):
     categories = SubCategory.objects.all()
     context['categories'] = categories
 
+    shop_id = Shop.objects.get(owner_id=request.user.id).id
+
     if request.POST:
         name = request.POST['name']
         category = request.POST['category']
@@ -52,16 +54,31 @@ def add_product(request):
         discount = request.POST['discount']
         desc_title = request.POST['desc-title']
         description = request.POST['description']
-
         image = request.FILES['image']
-        image3 = ''
-        image2 = ''
-        image4 = ''
-        if len(request.FILES) > 1:
-            image3 = request.FILES['image3']
-            image2 = request.FILES['image2']
-            image4 = request.FILES['image4']
 
-        print(category)
+        image3 = request.FILES['image3']
+        image2 = request.FILES['image2']
+        image4 = request.FILES['image4']
 
+        product = Product.objects.create(
+            shop_id=shop_id,
+            category_id=category,
+            name=name,
+            price=price,
+            image=image,
+            discount=discount,
+            description=description,
+            description_title=desc_title,
+            image2=image2,
+            image3=image3,
+            image4=image4
+        )
+        product.save()
     return render(request, 'shop/add-product.html', context)
+
+
+def delete_product(request, pk):
+    product = Product.objects.get(pk=pk)
+    product.delete()
+
+    return redirect('products')
