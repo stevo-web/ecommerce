@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render
 from main.models import Product, SubCategory
 from django.http.response import HttpResponse
 from main.forms import AddProduct
-from main.models import Product
 from .forms import CreateShop
 from .models import Shop
 
@@ -43,5 +42,26 @@ def products(request):
 
 def add_product(request):
     context = {}
+    categories = SubCategory.objects.all()
+    context['categories'] = categories
+
+    if request.POST:
+        name = request.POST['name']
+        category = request.POST['category']
+        price = request.POST['price']
+        discount = request.POST['discount']
+        desc_title = request.POST['desc-title']
+        description = request.POST['description']
+
+        image = request.FILES['image']
+        image3 = ''
+        image2 = ''
+        image4 = ''
+        if len(request.FILES) > 1:
+            image3 = request.FILES['image3']
+            image2 = request.FILES['image2']
+            image4 = request.FILES['image4']
+
+        print(category)
 
     return render(request, 'shop/add-product.html', context)
