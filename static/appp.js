@@ -1,5 +1,5 @@
 
-const app = new Vue({
+const appp = new Vue({
     el: "#app",
     delimiters: ['[[', ']]'],
     data: {
@@ -10,6 +10,8 @@ const app = new Vue({
         categories: [],
         products: [],
         counties: [],
+        checkCounty: null,
+        checkSubCouty: [],
         user: {
             firstname: null,
             lastname: null,
@@ -24,8 +26,14 @@ const app = new Vue({
         this.getCategories();
         this.getCart();
         this.getCounties();
+        this.getCheckSubCounty();
     },
     methods: {
+        getCheckSubCounty:async function() {
+            if(this.checkCounty !== null){
+                console.log(this.checkCounty)
+            }
+        },
         getCategories: async function() {
             const res = await axios.post('/graphql/', {
                 query: `{allCategories{id name sub_category{id name}}}`
@@ -81,7 +89,7 @@ const app = new Vue({
         },
         getCounties: async function(){
             const res = await axios.post('/graphql/', {
-                query: `{allCounties{code name}}`,
+                query: `{allCounties{code name sub_counties}}`,
             });
             this.counties = res.data.data.allCounties;
         },
