@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from shop.models import Shop
 from users.models import User
 
@@ -39,13 +40,21 @@ class Product(models.Model):
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE)
+    unit_price = models.FloatField()
 
     def __str__(self):
         return f'{self.product.name} order-item'
 
 
 class Order(models.Model):
+    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    address = models.CharField(max_length=60)
+    location = models.CharField(max_length=60)
+    payment = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=(
+        ('pending', 'pending'),
+        ('delivered', 'delivered')
+    ))
     order_item = models.ManyToManyField(OrderItem)
     paid = models.BooleanField(default=False)
     total = models.FloatField()

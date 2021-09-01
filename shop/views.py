@@ -1,7 +1,5 @@
 from django.shortcuts import redirect, render
 from main.models import Product, SubCategory
-from django.http.response import HttpResponse
-from main.forms import AddProduct
 from .forms import CreateShop
 from .models import Shop
 

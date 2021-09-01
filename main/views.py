@@ -1,9 +1,7 @@
 import random
-import json
 from django.shortcuts import render
-from django.http.response import HttpResponse
-from django.template import context
 from django.contrib.auth.decorators import login_required
+from .forms import CheckoutForm
 
 from cart.cart import Cart
 from .models import *
@@ -128,4 +126,10 @@ def checkout(request):
     context = {}
     cart = Cart(request)
     context['cart'] = cart
+
+    form = CheckoutForm()
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+
+    context["form"] = form
     return render(request, 'checkout.html', context)

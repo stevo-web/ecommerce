@@ -1,20 +1,18 @@
 from django import forms
-from .models import Product
+from Kenya.counties import counties
+
+counties_choices = [(f'{county["name"]}', f'{county["name"]}') for county in counties]
+counties_choices.insert(0, ('none', 'select county'))
+counties_choices = tuple(counties_choices)
+
+payment_choices = (
+    ('mpesa', 'M-pesa'),
+    ('credit', 'Credit Card')
+)
 
 
-class AddProduct(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = "__all__"
-        exclude = ['shop']
-
-    #
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['name'].widget.attrs.update({'class': 'form-control validate'})
-    #     self.fields['description_title'].widget.attrs.update({'class': 'form-control validate'})
-    #     self.fields['description'].widget.attrs.update({'class': 'form-control validate'})
-    #     self.fields['discount'].widget.attrs.update({'class': 'form-control validate'})
-    #     self.fields['price'].widget.attrs.update({'class': 'form-control validate'})
-    #     # self.fields['category'].widget.attrs.update({'class': 'custom-select d-block w-100 validate'})
-    #     self.fields['image'].widget.attrs.update({'class': 'form-control validate'})
+class CheckoutForm(forms.Form):
+    address = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    county = forms.ChoiceField(widget=forms.Select(attrs={'class': 'custom-select d-block w-80 form-control'}),
+                               choices=counties_choices)
+    payment = forms.ChoiceField(widget=forms.RadioSelect, choices=payment_choices)

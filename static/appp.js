@@ -10,8 +10,6 @@ const appp = new Vue({
         categories: [],
         products: [],
         counties: [],
-        checkCounty: null,
-        checkSubCouty: [],
         user: {
             firstname: null,
             lastname: null,
@@ -26,14 +24,9 @@ const appp = new Vue({
         this.getCategories();
         this.getCart();
         this.getCounties();
-        this.getCheckSubCounty();
     },
     methods: {
-        getCheckSubCounty:async function() {
-            if(this.checkCounty !== null){
-                console.log(this.checkCounty)
-            }
-        },
+
         getCategories: async function() {
             const res = await axios.post('/graphql/', {
                 query: `{allCategories{id name sub_category{id name}}}`
