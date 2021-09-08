@@ -130,6 +130,13 @@ def checkout(request):
     form = CheckoutForm()
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
+        if form.is_valid():
+            address = form.cleaned_data['address']
+            location = form.cleaned_data['location']
+            payment = form.cleaned_data['payment']
+
+            print(f'{ address } , {location} , {payment}')
+
 
     context["form"] = form
     return render(request, 'checkout.html', context)

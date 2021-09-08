@@ -35,18 +35,27 @@
                 <!-- Nav -->
                 <div class="row">
                     <nav class="navbar navbar-expand-lg navbar-light bg-white col-12">
-                        <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                        <button v-on:click="shownav()" class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="mainNav">
+                        <div class="collapse navbar-collapse" v-bind:class="{ 'show': show, '': !show }" id="mainNav">
                             <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                                 </li>
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link" href="{% url 'home' %}"> Products <span class="sr-only">(current)</span></a>
-                                </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="fashion" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+                                            <div class="dropdown-menu" aria-labelledby="fashion">
+                                                <div class="container" v-for="category in categories">
+                                                    <h6>Electronics</h6>
+                                                <select class="custom-select validate d-block">
+                                                    <option>select Sub Category</option>
+                                                    <option v-for="sub in category.sub_category"><a href="#">[[ sub.name ]]</a></option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                        </li>
 
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="{% url 'home' %}">Events <span class="sr-only">(current)</span></a>

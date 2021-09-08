@@ -5,6 +5,8 @@ const appp = new Vue({
     data: {
         message: '',
         added: false,
+        showMessage: false,
+        show: false,
         quantity: 1,
         cart: { },
         categories: [],
@@ -26,7 +28,9 @@ const appp = new Vue({
         this.getCounties();
     },
     methods: {
-
+        shownav: function(){
+            this.show = !this.show;
+        },
         getCategories: async function() {
             const res = await axios.post('/graphql/', {
                 query: `{allCategories{id name sub_category{id name}}}`
@@ -60,7 +64,12 @@ const appp = new Vue({
             }else{
                 console.log('err')
             }
-            await this.getCart()
+            this.message = `item has been added to cart`
+            this.showMessage = true;
+            await this.getCart();
+            setTimeout(function(){
+                this.showMessage = false;
+            }.bind(this), 3000)
         },
         removeItem: async function (id){
             const res = await axios.post('/graphql/', {
@@ -69,7 +78,12 @@ const appp = new Vue({
                     prodId: id
                 }
             });
-            await this.getCart()
+            this.message = `item has been removed from cart`;
+            this.showMessage = true;
+            await this.getCart();
+            setTimeout(function(){
+                this.showMessage = false;
+            }.bind(this), 3000)
         },
         updateCart: async function(id, quantity){
             const res = await axios.post('/graphql/', {

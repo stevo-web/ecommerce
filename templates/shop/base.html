@@ -1,68 +1,61 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Product Admin - Dashboard HTML Template</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Responsive Admin</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'css/adminbootstrap.css' %}" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="{% static 'css/fontawesome.min.css' %}" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="{% static 'css/custom_.css' %}" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 
-<body id="reportsPage">
-    <div class="" id="home">
+<body>
+    <div id="">
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
 
-        <nav class="container-fluid col-sm-8 col-md-12">
-            <div class="row">
+                    <li >
+                        <a href="index.html" ><i class="fa fa-desktop "></i>Dashboard</a>
+                    </li>
 
-            <div class="col-sm-4">
-              <a class="active nav-link" href="{% url 'shop-dashboard' %}">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-                <span class="sr-only">(current)</span>
-              </a>
-            </div>
+                    <li>
+                        <a href="ui.html"><i class="fa fa-table "></i>UI Elements </a>
+                    </li>
 
-            <div class="col-sm-4">
-              <a class="active nav-link" href="{% url 'products' %}">
-                <i class="fas fa-shopping-cart"></i> Products
-              </a>
-            </div>
+                    <li class="active-link">
+                        <a href="blank.html"><i class="fa fa-edit "></i>Blank Page </a>
+                    </li>
 
-            <div class="col-sm-4">
-              <a class="active nav-link" href="{% url 'logout' %}">
-                <i class="fas fa-sign-out-alt"></i> {{ user.firstname }}, Logout
-              </a>
-            </div>
+                </ul>
+                            </div>
 
-            </div>
         </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
 
-        {% block content %}
+                {% block content %}
 
-        {% endblock %}
+                {% endblock %}
 
-        <footer class="tm-footer row tm-mt-small">
-            <div class="col-12 font-weight-light">
-                <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; 2k21 All rights reserved.
-                </p>
             </div>
-        </footer>
-    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'js/jsbootstrap.min.js' %}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'js/custom.js' %}"></script>
 
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <!-- https://jquery.com/download/ -->
-    <script src="{% static 'js/moment.min.js' %}"></script>
-    <!-- https://momentjs.com/ -->
-    <script src="{% static 'js/Chart.min.js' %}"></script>
-    <!-- http://www.chartjs.org/docs/latest/ -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <!-- https://getbootstrap.com/ -->
-    <script src="{% static 'js/tooplate-scripts.js' %}"></script>
+
 </body>
-
 </html>

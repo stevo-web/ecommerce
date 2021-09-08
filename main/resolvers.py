@@ -1,3 +1,4 @@
+from django.contrib import messages
 from ariadne import QueryType, MutationType, convert_kwargs_to_snake_case, snake_case_fallback_resolvers
 from django.conf import settings
 from cart.cart import Cart
@@ -125,6 +126,7 @@ def resolve_add_to_cart(_, info, prod_id, quantity):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
     cart.add(product=prod, unit_price=prod.price, quantity=quantity)
+    messages.info(request, f'{prod.name} has been added to cart')
     return {
         "success": True
     }
@@ -137,6 +139,7 @@ def resolve_remove_item(_, info, prod_id):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
     cart.remove(prod)
+    messages.error(request, f'{prod.name} has been removed from cart')
     return {
         "success": True
     }
@@ -149,6 +152,7 @@ def resolve_update(_, info, prod_id, quantity):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
     cart.update(prod, quantity, prod.price)
+    messages.info(request, f'{prod.name} has been updated')
     return {
         "success": True
     }
