@@ -1,15 +1,11 @@
 from django import forms
 from Kenya.counties import counties
-from main.models import Product
+from main.models import Category
 
 county_choices = [(f'{county["name"]}', f'{county["name"]}') for county in counties]
 county_choices = tuple(county_choices)
 
-sale_choices = (
-        ('services', 'services'),
-        ('products', 'products'),
-        ('events', 'events')
-    )
+sale_choices = tuple([(f'{cat.name}', f'{cat.name}') for cat in Category.objects.all()])
 
 
 class CreateShop(forms.Form):
