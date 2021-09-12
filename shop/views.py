@@ -1,30 +1,39 @@
 from django.shortcuts import redirect, render
-from main.models import Product, SubCategory
-from .forms import CreateShop
+from main.models import Product, SubCategory, Category
 from .models import Shop
+from Kenya.counties import counties
+
+location = [f'{county["name"]}' for county in counties]
 
 
 def sell(request):
     context = {}
-    form = CreateShop(request.POST)
-    if request.method == "POST":
-        if form.is_valid():
-            name = form.cleaned_data["name"]
-            location = form.cleaned_data["location"]
-            sale = form.cleaned_data["sale"]
-            mpesa_till = form.cleaned_data['mpesa_till']
+    user = request.user
+    if request.POST:
+        name = request.POST["name"]
+        _location = request.POST["_location"]
+        industry = request.POST["industry"]
+        link = request.POST["link"]
+        mpesa = request.POST["mpesa"]
+        image = request.FILES['image']
 
-            user = request.user
-            new_shop = Shop.objects.create(name=name, location=location, sale=sale, mpesa_till=mpesa_till, owner=user)
-            new_shop.save()
-            user.has_shop = True
-            return redirect('shop-dashboard')
-    context["form"] = form
+        shop = Shop.objects.create(owner_id=user.id, name=name, location=_location, shop_logo=image, industry=industry, shop_link=link, mpesa_till=mpesa)
+        user.has_shop = True
+        shop.save()
+        print('saved')
+        return redirect('shop-dashboard')
+
+    context["location"] = location
+    context["industries"] = Category.objects.all()
     return render(request, 'sell.html', context)
 
 
 def dashboard(request):
     context = {}
+    user = request.user
+    shop = Shop.objects.get(owner_id=user.id)
+    context["shop"] = shop
+
     return render(request, 'shop/index.html')
 
 
