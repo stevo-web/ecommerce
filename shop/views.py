@@ -15,10 +15,10 @@ def sell(request):
         industry = request.POST["industry"]
         link = request.POST["link"]
         mpesa = request.POST["mpesa"]
-        image = request.FILES['image']
 
-        shop = Shop.objects.create(owner_id=user.id, name=name, location=_location, shop_logo=image, industry=industry, shop_link=link, mpesa_till=mpesa)
+        shop = Shop.objects.create(owner_id=user.id, name=name, location=_location,  industry=industry, shop_link=link, mpesa_till=mpesa)
         user.has_shop = True
+        user.save()
         shop.save()
         print('saved')
         return redirect('shop-dashboard')
