@@ -1,0 +1,15 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container-fluid bg-white">
+        <div class="panel-title"> {{ shop.name }} Products </div>
+        <div class="mb-5">
+            {% for product in prods %}
+                {{ product.name }}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

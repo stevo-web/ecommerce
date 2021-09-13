@@ -33,8 +33,9 @@ def dashboard(request):
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
     context["shop"] = shop
+    context["owner"] = user
 
-    return render(request, 'shop/index.html')
+    return render(request, 'shop/index.html', context)
 
 
 def products(request):
