@@ -11,7 +11,7 @@
      <!-- FONTAWESOME STYLES-->
     <link href="{% static 'css/fontawesome.min.css' %}" rel="stylesheet" />
         <!-- CUSTOM STYLES-->
-    <link href="{% static 'css/custom_.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/_custom_.css' %}" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
@@ -23,11 +23,11 @@
                 <ul class="nav" id="main-menu">
 
                     <li >
-                        <a href="{% url 'products' %}" ><i class="fa fa-tablet "></i>Products</a>
+                        <a href="{% url 'shop-dashboard' %}" ><i class="fa fa-tablet "></i>Products</a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-table "></i>Orders</a>
+                        <a href="{% url 'shop-orders' %}"><i class="fa fa-table "></i>Orders</a>
                     </li>
 
                     <li class="link">

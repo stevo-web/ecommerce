@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from main.models import Product, SubCategory, Category
 from .models import Shop
+from main.models import Order
 from Kenya.counties import counties
 
 location = [f'{county["name"]}' for county in counties]
@@ -28,24 +29,27 @@ def sell(request):
     return render(request, 'sell.html', context)
 
 
+def shop_orders(request):
+    context = {}
+    user = request.user
+    shop_id = Shop.objects.get(owner_id=user.id).id
+    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop_id)
+
+    context["shop_orders"] = _shop_orders
+    return render(request, 'shop/orders.html', context)
+
+
 def dashboard(request):
     context = {}
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
+    shop_products = Product.objects.filter(shop_id=shop.id)
+
+    context["products"] = shop_products
     context["shop"] = shop
     context["owner"] = user
 
     return render(request, 'shop/index.html', context)
-
-
-def products(request):
-    context = {}
-    owner = request.user
-    shop = Shop.objects.get(owner_id=owner.id)
-    prods = Product.objects.filter(shop_id=shop.id)
-    context["prods"] = prods
-
-    return render(request, 'shop/products.html', context)
 
 
 def add_product(request):
@@ -89,4 +93,4 @@ def delete_product(request, pk):
     product = Product.objects.get(pk=pk)
     product.delete()
 
-    return redirect('products')
+    return redirect('shop-dashboard')
