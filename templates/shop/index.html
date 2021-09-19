@@ -13,7 +13,7 @@
                     <div class="col-lg-12 ">
                         <div class="alert alert-info">
                              <strong>Welcome {{ owner.firstname }}! </strong>
-
+                            <hr>
                             <div class="tm-product-table-container">
               <table class="table table-hover tm-table-small tm-product-table">
                 <thead>
@@ -27,7 +27,7 @@
                 <tbody>
                 {% for product in products %}
                   <tr>
-                    <td class="tm-product-name">{{ product.name }}</td>
+                      <td class="tm-product-name"><a href="{% url 'products' product.id %}">{{ product.name }}</a> </td>
                     <td>{{ product.price }}</td>
                     <td>{{ product.discount }}</td>
 

@@ -3,6 +3,7 @@ from main.models import Product, SubCategory, Category
 from .models import Shop
 from main.models import Order
 from Kenya.counties import counties
+from .forms import AddProductForm
 
 location = [f'{county["name"]}' for county in counties]
 
@@ -56,36 +57,19 @@ def add_product(request):
     context = {}
     categories = SubCategory.objects.all()
     context['categories'] = categories
-
-    shop_id = Shop.objects.get(owner_id=request.user.id).id
+    shop = Shop.objects.get(owner_id=request.user.id)
+    form = AddProductForm()
+    context["form"] = form
 
     if request.POST:
-        name = request.POST['name']
-        category = request.POST['category']
-        price = request.POST['price']
-        discount = request.POST['discount']
-        desc_title = request.POST['desc-title']
-        description = request.POST['description']
-        image = request.FILES['image']
+        form = AddProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            prod = form.save(commit=False)
+            prod.shop = shop
+            prod.save()
 
-        image3 = request.FILES['image3']
-        image2 = request.FILES['image2']
-        image4 = request.FILES['image4']
+            return redirect('shop-dashboard')
 
-        product = Product.objects.create(
-            shop_id=shop_id,
-            category_id=category,
-            name=name,
-            price=price,
-            image=image,
-            discount=discount,
-            description=description,
-            description_title=desc_title,
-            image2=image2,
-            image3=image3,
-            image4=image4
-        )
-        product.save()
     return render(request, 'shop/add-product.html', context)
 
 
@@ -94,3 +78,4 @@ def delete_product(request, pk):
     product.delete()
 
     return redirect('shop-dashboard')
+
