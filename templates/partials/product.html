@@ -1,0 +1,44 @@
+{% load static %}
+
+<div style="color:#D1CDC7; background-color: rgb(36, 39, 40)" class="col-lg-3 col-md-6 mb-4">
+
+    <!--Card-->
+    <div class="card">
+
+      <!--Card image-->
+      <div class="view overlay">
+        <img src="{{ prod.image.url }}" class="card-img-top"
+          alt="">
+        <a href="{% url 'products' prod.id %}">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <!--Card image-->
+
+      <!--Card content-->
+      <div class="card-body text-center">
+        <!--Category & Title-->
+        <a href="{% url 'category' prod.category.id %}" class="grey-text">
+          <h5>{{ prod.category.name }}</h5>
+        </a>
+        <h5>
+          <strong>
+            <a href="{% url 'products' prod.id %}" class="dark-grey-text">{{ prod.name }}
+                {% if prod.new %}
+              <span class="badge badge-pill danger-color">NEW</span>
+                {% endif %}
+            </a>
+          </strong>
+        </h5>
+
+        <h5 class="font-weight-bold blue-text">
+          <strong>ksh {{ prod.price }}</strong>
+        </h5>
+          <a href="{% url 'add-cart' prod.id 1 %}" class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+              <i class="fas fa-shopping-cart ml-1"></i>
+          </a>
+      </div>
+      <!--Card content-->
+
+    </div>
+  </div>

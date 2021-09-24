@@ -23,6 +23,7 @@ class Product(models.Model):
     name = models.CharField(max_length=40)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    new = models.BooleanField(default=True)
     price = models.FloatField()
     discount = models.FloatField(default=0)
     image = models.ImageField(upload_to='product images')

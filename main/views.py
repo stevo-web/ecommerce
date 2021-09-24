@@ -1,5 +1,5 @@
 import random
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import CheckoutForm
 
@@ -17,9 +17,11 @@ def index(request):
         products.append(product)
     random.shuffle(products)
 
+    sub_categories = SubCategory.objects.filter(category_id=1)
     latest = Product.objects.all()
     context["latest"] = latest
-    context["products"] = products[:30]
+    context["sub_cats"] = sub_categories
+    context["products"] = products[:10]
 
     return render(request, "index.html", context)
 
@@ -33,11 +35,13 @@ def product_detail(request, prod_id):
     similar_products = Product.objects.filter(category__name=product.category.name)
     context['similar_products'] = similar_products
     context['product'] = product
-    return render(request, 'product.html', context)
+    return render(request, 'product-page.html', context)
 
 
 def category(request, cat_id):
     context = {}
+    cart = Cart(request)
+    context['cart'] = cart
     sub_category = SubCategory.objects.get(pk=cat_id)
     products = Product.objects.filter(category_id=cat_id)
     context["products"] = products
@@ -48,6 +52,8 @@ def category(request, cat_id):
 
 def search(request):
     context = {}
+    cart = Cart(request)
+    context['cart'] = cart
     products = []
     found = {}
     if request.POST:
@@ -57,14 +63,14 @@ def search(request):
         _prod = Product.objects.filter(name__contains=search_key)
         _desc_title = Product.objects.filter(description_title__contains=search_key)
         _desc = Product.objects.filter(description__contains=search_key)
-        _tag = Product.objects.filter(tag__tag__contains=search_key)
+        # _tag = Product.objects.filter(tag__tag__contains=search_key)
 
-        for product in _tag:
-            if product.id in found:
-                pass
-            else:
-                found[product.id] = True
-                products.append(product)
+        # for product in _tag:
+        #     if product.id in found:
+        #         pass
+        #     else:
+        #         found[product.id] = True
+        #         products.append(product)
 
         for product in _desc:
             if product.id in found:
@@ -136,7 +142,26 @@ def checkout(request):
             payment = form.cleaned_data['payment']
 
             print(f'{ address } , {location} , {payment}')
-
-
     context["form"] = form
     return render(request, 'checkout.html', context)
+
+
+def add_cart(request, prod_id, quantity):
+    cart = Cart(request)
+    prod = Product.objects.get(pk=prod_id)
+    cart.add(prod, prod.price, quantity)
+    return redirect('home')
+
+
+def update(request, prod_id, quantity):
+    cart = Cart(request)
+    prod = Product.objects.get(pk=prod_id)
+    cart.update(prod, quantity, prod.price)
+    return redirect('cart')
+
+
+def remove(request, prod_id):
+    cart = Cart(request)
+    prod = Product.objects.get(pk=prod_id)
+    cart.remove(prod)
+    return redirect('cart')
