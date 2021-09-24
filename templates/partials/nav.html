@@ -19,15 +19,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <!-- Left -->
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto pr-3">
           <li class="nav-item active">
             <a class="nav-link waves-effect" href="{% url 'home' %}">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="#" target="_blank">About Elsoko</a>
+          <li class="nav-item pl-2">
+            <a href="#" class="nav-link border border-light rounded waves-effect"
+              target="_blank">
+              <i class="fas fa-store mr-2"></i>Sell
+            </a>
           </li>
+
         </ul>
 
         <!-- Right -->
@@ -49,12 +53,23 @@
               <i class="fab fa-twitter"></i>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link border border-light rounded waves-effect"
-              target="_blank">
-              <i class="fas fa-store mr-2"></i>Sell
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user"></i>
             </a>
-          </li>
+            {% if user.is_authenticated %}
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+{#              <a class="dropdown-item" href="#">Dashboard</a>#}
+{#              <a class="dropdown-item" href="#">Edit Profile</a>#}
+              <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+            </div>
+                {% else %}
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+              <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+            </div>
+            {% endif %}
+        </li>
         </ul>
 
       </div>

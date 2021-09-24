@@ -13,6 +13,7 @@ body,
     .carousel .carousel-inner .active {
       height: 100%; }
 
+
 /* Adjustment for mobile devices*/
 @media (max-width: 776px) {
   .carousel {

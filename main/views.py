@@ -1,6 +1,7 @@
 import random
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import CheckoutForm
 
 from cart.cart import Cart
@@ -17,11 +18,20 @@ def index(request):
         products.append(product)
     random.shuffle(products)
 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(products, 8)
+    try:
+        _products = paginator.page(page)
+    except PageNotAnInteger:
+        _products = paginator.page(1)
+    except EmptyPage:
+        _products = paginator.page(paginator.num_pages)
+
     sub_categories = SubCategory.objects.filter(category_id=1)
     latest = Product.objects.all()
     context["latest"] = latest
     context["sub_cats"] = sub_categories
-    context["products"] = products[:10]
+    context["products"] = _products
 
     return render(request, "index.html", context)
 
