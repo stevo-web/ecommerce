@@ -1,4 +1,4 @@
-import location as location
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout as _logout, login as _login
 from django.contrib import messages
