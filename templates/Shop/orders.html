@@ -1,0 +1,49 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-10">
+              <!-- TABLE: LATEST ORDERS -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Latest Orders</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                        <tr>
+                          <th>Order ID</th>
+                          <th>Customer</th>
+                            <th>Paid</th>
+                            <th>Total</th>
+                            <th>ETA</th>
+                          <th>Made On</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for order in shop_orders %}
+                        <tr>
+                          <td><a href="#">{{ order.id }}</a></td>
+                          <td>{{ order.customer }}</td>
+                            <td>{{ order.paid }}</td>
+                            <td> {{ order.total }}</td>
+                            <td> {{ order.estimated }}</td>
+                          <td>{{ order.made_on }}</td>
+                          <td><span class="label label-success">{{ order.status }}</span></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                </div><!-- /.box-footer -->
+              </div><!-- /.box -->
+            </div>
+        </div>
+    </section>
+{% endblock %}

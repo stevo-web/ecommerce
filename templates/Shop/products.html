@@ -1,0 +1,38 @@
+{% extends 'shop/base.html' %}
+{% load static%}
+
+{% block content%}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="tm-product-table-container">
+              <table class="table table-hover tm-table-small tm-product-table">
+                <thead>
+                  <tr>
+                    <th scope="col">PRODUCT NAME</th>
+                    <th scope="col">PRODUCT PRICE</th>
+                    <th scope="col">IN DISCOUNT</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                  <tr>
+                      <td class="tm-product-name"><a href="{% url 'products' product.id %}">{{ product.name }}</a> </td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.discount }}</td>
+
+                    <td>
+                      <a href="{% url 'delete-product' product.id %}" class="btn btn-danger">
+                        <i>X</i>
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

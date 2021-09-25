@@ -7,6 +7,8 @@ from main.models import Order
 from Kenya.counties import counties
 from .forms import AddProductForm
 from cart.cart import Cart
+import time
+
 
 location = [f'{county["name"]}' for county in counties]
 
@@ -30,7 +32,7 @@ def sell(request):
         user.has_shop = True
         user.save()
         shop.save()
-        print('saved')
+        time.sleep(2)
         return redirect('shop-dashboard')
 
     context["location"] = location
@@ -90,3 +92,18 @@ def delete_product(request, pk):
 
     return redirect('shop-dashboard')
 
+
+def products(request):
+    context = {}
+    user = request.user
+    shop = Shop.objects.get(owner_id=user.id)
+    shop_products = Product.objects.filter(shop_id=shop.id)
+
+    context["products"] = shop_products
+    return render(request, 'shop/products.html', context)
+
+
+def customers(request):
+
+
+    return render(request, 'customers.html', context)

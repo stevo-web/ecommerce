@@ -119,15 +119,15 @@
                 </a>
               </li>
               <li class="treeview">
-                <a href="#">
+                <a href="{% url 'shop-orders' %}">
                   <i class="fa fa-th"></i>
                   <span>Orders</span>
-                  <span class="label label-primary pull-right">4</span>
+                  <span class="label label-primary pull-right">{{ orders.count }}</span>
                 </a>
 
               </li>
               <li>
-                <a href="#">
+                <a href="{% url 'shop-customers' %}">
                   <i class="fa fa-user"></i> <span>Customers</span>
                 </a>
               </li>
@@ -138,16 +138,16 @@
                 </a>
               </li>
               <li class="treeview">
-                <a href="#">
+                <a href="{% url 'add-product' %}">
                   <i class="fa fa-plus"></i>
                   <span>Add Product</span>
                 </a>
               </li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-edit"></i> <span>Edit Products</span>
-                </a>
-              </li>
+{#              <li class="treeview">#}
+{#                <a href="{% url 'shop-products' %}">#}
+{#                  <i class="fa fa-edit"></i> <span>Edit Products</span>#}
+{#                </a>#}
+{#              </li>#}
 
 
             </ul>
@@ -183,7 +183,7 @@
                   <div class="icon">
                     <i class="ion ion-bag"></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="{% url 'shop-orders' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div><!-- ./col -->
               <div class="col-lg-4 col-xs-6">
@@ -196,7 +196,7 @@
                   <div class="icon">
                     <i class="ion ion-ios-cart"></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="{% url 'shop-products' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div><!-- ./col -->
               <div class="col-lg-4 col-xs-6">
@@ -209,7 +209,7 @@
                   <div class="icon">
                     <i class="ion ion-person-add"></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="{% url 'shop-customers' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div><!-- ./col -->
             </div><!-- /.row -->
