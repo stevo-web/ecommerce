@@ -44,9 +44,11 @@ def dashboard(request):
     context = {}
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
+    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
     shop_products = Product.objects.filter(shop_id=shop.id)
 
     context["products"] = shop_products
+    context["orders"] = _shop_orders
     context["shop"] = shop
     context["owner"] = user
 
