@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+    {% include 'partials/nav.html' %}
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+      <!-- Heading -->
+      <h2 class="my-5 h2 text-center">CREATE YOUR SHOP</h2>
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-10 mb-4">
+
+          <!--Card-->
+          <div class="card bg-dark">
+
+            <!--Card content-->
+            <form class="card-body">
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--firstName-->
+                  <div class="md-form ">
+                    <input type="text" id="Name" name="name" class="form-control">
+                    <label for="Name" class="">Shop Name</label>
+                  </div>
+
+                </div>
+
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+                    <input type="text" id="link" name="link" class="form-control">
+                    <label for="link" class="">Link to personal shop website (optional)</label>
+                  </div>
+
+                </div>
+
+                <div class="col-md-6 mb-2">
+                  <div class="md-form ">
+                    <select class="form-control" name="industry">
+                        <option value="">Industry</option>
+                        {% for item in industry %}
+                            <option value="{{ item.name }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                  <div class="md-form">
+                    <select name="_location" class="form-control">
+                        <option value="">Select your shop location</option>
+                        {% for location in location %}
+                            <option value="{{ location }}">{{ location }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+                    <input type="text" id="link" name="link" class="form-control">
+                    <label for="link" class="">Link to personal shop website (optional)</label>
+                  </div>
+
+                </div>
+
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+                    <input type="text" id="mpesa" name="mpesa" class="form-control">
+                    <label for="link" class="">Mpesa Till</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+              </div>
+              <!--Grid row-->
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Create Now</button>
+
+            </form>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+    </div>
+    </div>
+  </main>
+    {% include 'partials/footer.html' %}
+  <!--Main layout-->
+  {% endblock %}

@@ -25,13 +25,21 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
+            {% if user.has_shop %}
           <li class="nav-item pl-2">
-            <a href="#" class="nav-link border border-light rounded waves-effect"
+            <a href="{% url 'shop-dashboard' %}" class="nav-link border border-light rounded waves-effect"
+              target="_blank">
+              <i class="fas fa-store mr-2"></i>Dashboard
+            </a>
+          </li>
+            {% else %}
+          <li class="nav-item pl-2">
+            <a href="{% url 'sell' %}" class="nav-link border border-light rounded waves-effect"
               target="_blank">
               <i class="fas fa-store mr-2"></i>Sell
             </a>
           </li>
-
+            {% endif %}
         </ul>
 
         <!-- Right -->

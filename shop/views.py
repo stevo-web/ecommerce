@@ -1,15 +1,23 @@
 from django.shortcuts import redirect, render
 from main.models import Product, SubCategory, Category
 from .models import Shop
+from main.models import SubCategory
+from django.contrib.auth.decorators import login_required
 from main.models import Order
 from Kenya.counties import counties
 from .forms import AddProductForm
+from cart.cart import Cart
 
 location = [f'{county["name"]}' for county in counties]
 
 
+@login_required(login_url='login')
 def sell(request):
     context = {}
+    context["industry"] = SubCategory.objects.all()
+    context["cart"] = Cart(request)
+    context["location"] = location
+
     user = request.user
     if request.POST:
         name = request.POST["name"]
@@ -40,6 +48,7 @@ def shop_orders(request):
     return render(request, 'shop/orders.html', context)
 
 
+@login_required(login_url='login')
 def dashboard(request):
     context = {}
     user = request.user
