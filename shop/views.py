@@ -105,5 +105,4 @@ def products(request):
 
 def customers(request):
 
-
-    return render(request, 'customers.html', context)
+    return render(request, 'customers.html')
