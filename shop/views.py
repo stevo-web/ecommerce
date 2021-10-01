@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from main.models import Product, SubCategory, Category
+from django.contrib import messages
 from .models import Shop
 from main.models import SubCategory
 from django.contrib.auth.decorators import login_required
@@ -43,9 +44,14 @@ def sell(request):
 def shop_orders(request):
     context = {}
     user = request.user
-    shop_id = Shop.objects.get(owner_id=user.id).id
-    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop_id)
+    shop = Shop.objects.get(owner_id=user.id)
+    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    shop_products = Product.objects.filter(shop_id=shop.id)
 
+    context["products"] = shop_products
+    context["orders"] = _shop_orders
+    context["shop"] = shop
+    context["owner"] = user
     context["shop_orders"] = _shop_orders
     return render(request, 'shop/orders.html', context)
 
@@ -69,7 +75,17 @@ def dashboard(request):
 def add_product(request):
     context = {}
     categories = SubCategory.objects.all()
+    user = request.user
+    shop = Shop.objects.get(owner_id=user.id)
+    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    shop_products = Product.objects.filter(shop_id=shop.id)
+
+    context["products"] = shop_products
+    context["orders"] = _shop_orders
+    context["shop"] = shop
+    context["owner"] = user
     context['categories'] = categories
+
     shop = Shop.objects.get(owner_id=request.user.id)
     form = AddProductForm()
     context["form"] = form
@@ -97,12 +113,27 @@ def products(request):
     context = {}
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
+    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
     shop_products = Product.objects.filter(shop_id=shop.id)
 
+    context["products"] = shop_products
+    context["orders"] = _shop_orders
+    context["shop"] = shop
+    context["owner"] = user
     context["products"] = shop_products
     return render(request, 'shop/products.html', context)
 
 
 def customers(request):
+    context = {}
+    user = request.user
+    shop = Shop.objects.get(owner_id=user.id)
+    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    shop_products = Product.objects.filter(shop_id=shop.id)
 
-    return render(request, 'customers.html')
+    context["products"] = shop_products
+    context["orders"] = _shop_orders
+    context["shop"] = shop
+    context["owner"] = user
+
+    return render(request, 'shop/customers.html', context)

@@ -4,34 +4,49 @@
 {% block content%}
     <section class="content">
         <div class="row">
-            <div class="col-md-8">
-                <div class="tm-product-table-container">
-              <table class="table table-hover tm-table-small tm-product-table">
-                <thead>
-                  <tr>
-                    <th scope="col">PRODUCT NAME</th>
-                    <th scope="col">PRODUCT PRICE</th>
-                    <th scope="col">IN DISCOUNT</th>
-                    <th scope="col">&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for product in products %}
-                  <tr>
-                      <td class="tm-product-name"><a href="{% url 'products' product.id %}">{{ product.name }}</a> </td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.discount }}</td>
-
-                    <td>
-                      <a href="{% url 'delete-product' product.id %}" class="btn btn-danger">
-                        <i>X</i>
-                      </a>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
+                        <div class="col-md-10">
+              <!-- TABLE: LATEST ORDERS -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">PRODUCTS</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                        <tr>
+                          <th>PRODUCT ID</th>
+                          <th>IMAGE</th>
+                            <th>NAME</th>
+                            <th>CATEGORY</th>
+                            <th>PRICE</th>
+                          <th>DISCOUNT PRICE</th>
+                          <th> Delete prod </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for prod in products %}
+                        <tr>
+                          <td><a href="#">{{ prod.id }}</a></td>
+                          <td>
+                              <div class="product-img">
+                                <img src="{{ prod.image.url }}" height="40px" alt="Product Image">
+                              </div>
+                          </td>
+                            <td>{{ prod.name }}</td>
+                            <td> {{ prod.category }}</td>
+                            <td> ksh {{ prod.price }}</td>
+                          <td> ksh {{ prod.discount }}</td>
+                          <td><a href="{% url 'delete-product' prod.id %}" class="btn btn-danger" > X</a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                </div><!-- /.box-footer -->
+              </div><!-- /.box -->
             </div>
         </div>
     </section>

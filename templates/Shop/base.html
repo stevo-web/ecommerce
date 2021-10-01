@@ -27,6 +27,7 @@
     <link href="{% static 'plugins/datepicker/datepicker3.css' %}" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
     <link href="{% static 'plugins/daterangepicker/daterangepicker-bs3.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}" rel="stylesheet" type="text/css" />
 
@@ -113,8 +114,8 @@
           <section class="sidebar">
             <ul class="sidebar-menu">
               <li class="header">MAIN NAVIGATION</li>
-              <li class="active treeview">
-                <a href="#">
+              <li class="treeview">
+                <a href="{% url 'shop-dashboard' %}">
                   <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
               </li>
@@ -132,7 +133,7 @@
                 </a>
               </li>
               <li class="treeview">
-                <a href="#">
+                <a href="{% url 'shop-products' %}">
                   <i class="fa fa-laptop"></i>
                   <span>Products</span>
                 </a>
@@ -164,7 +165,7 @@
               <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
-              <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+              <li><a href="{% url 'shop-dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
               <li class="active">Dashboard</li>
             </ol>
           </section>
@@ -218,6 +219,7 @@
                 {% block content %}<!-- right col -->
 
                 {% endblock %}
+
             </div><!-- /.row (main row) -->
 
           </section><!-- /.content -->

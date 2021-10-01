@@ -1,5 +1,6 @@
 import random
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import CheckoutForm
@@ -128,8 +129,7 @@ def search(request):
         return render(request, 'search.html', context)
 
 
-# Cart Views
-@login_required(login_url='login')
+
 def cart_list(request):
     context = {}
     cart = Cart(request)
@@ -137,7 +137,7 @@ def cart_list(request):
     return render(request, 'cart.html', context)
 
 
-@login_required(login_url='login')
+
 def checkout(request):
     context = {}
     cart = Cart(request)
@@ -160,6 +160,7 @@ def add_cart(request, prod_id, quantity):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
     cart.add(prod, prod.price, quantity)
+    messages.info(request, f'{prod.name} was added to cart')
     return redirect('home')
 
 
@@ -167,6 +168,7 @@ def update(request, prod_id, quantity):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
     cart.update(prod, quantity, prod.price)
+    messages.info(request, 'cart was updated')
     return redirect('cart')
 
 
@@ -174,4 +176,5 @@ def remove(request, prod_id):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
     cart.remove(prod)
+    messages.info(request, f'{prod.name} was removed from cart')
     return redirect('cart')

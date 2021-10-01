@@ -27,10 +27,6 @@ class Product(models.Model):
     price = models.FloatField()
     discount = models.FloatField(default=0)
     image = models.ImageField(upload_to='product images')
-    image2 = models.ImageField(upload_to="product images", blank=True, null=True)
-    image3 = models.ImageField(upload_to="product images", blank=True, null=True)
-    image4 = models.ImageField(upload_to="product images", blank=True, null=True)
-    description_title = models.TextField(blank=True, null=True)
     description = models.TextField()
     created_at = models.DateField(auto_now_add=True)
 

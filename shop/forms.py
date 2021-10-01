@@ -15,6 +15,4 @@ class AddProductForm(ModelForm):
         self.fields['discount'].widget.attrs.update({'class': 'form-control validate'})
         self.fields['image'].widget.attrs.update({'class': 'form-control validate'})
         self.fields['description'].widget.attrs.update({'class': 'form-control validate'})
-        self.fields['description_title'].widget.attrs.update({'class': 'form-control validate'})
-        self.fields['description_title'].widget.attrs.update({"row": "1"})
         self.fields['category'].widget.attrs.update({'class': 'form-control w-100 validate'})

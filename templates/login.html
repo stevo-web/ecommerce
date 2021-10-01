@@ -157,12 +157,7 @@ label {
                             </div>
 
                             <div class="col-lg-12 login-btm">
-                                <div class="col-lg-6 login-btm login-text">
-                                    {% for message in messages %}
-                                        <small class="text-danger"> {{ message }} </small>
-                                    {% endfor %}
-                                </div>
-                            <p> Register, <a href="{% url 'register' %}"> here </a> </p>
+                                <p> Register, <a href="{% url 'register' %}"> here </a> </p>
                                 <div class="col-lg-6 login-btm login-button">
                                     <button type="submit" class="btn btn-outline-primary">LOGIN</button>
                                 </div>
