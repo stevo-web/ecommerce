@@ -34,15 +34,6 @@ class Product(models.Model):
         return self.name
 
 
-class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    unit_price = models.FloatField()
-
-    def __str__(self):
-        return f'{self.product.name} order-item'
-
-
 class Order(models.Model):
     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     address = models.CharField(max_length=60)
@@ -53,7 +44,6 @@ class Order(models.Model):
         ('pending', 'pending'),
         ('delivered', 'delivered')
     ))
-    order_item = models.ManyToManyField(OrderItem)
     paid = models.BooleanField(default=False)
     total = models.FloatField()
     made_on = models.DateTimeField(auto_now_add=True)
@@ -61,3 +51,13 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    unit_price = models.FloatField()
+
+    def __str__(self):
+        return f'{self.product.name} order-item'

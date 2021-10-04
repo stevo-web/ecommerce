@@ -4,14 +4,13 @@ from django.contrib import messages
 from .models import Shop
 from main.models import SubCategory
 from django.contrib.auth.decorators import login_required
-from main.models import Order
+from main.models import Order, OrderItem
 from Kenya.counties import counties
 from .forms import AddProductForm
 from cart.cart import Cart
 import time
 
-
-location = [f'{county["name"]}' for county in counties]
+location = ['{county["name"]}' for county in counties]
 
 
 @login_required(login_url='login')
@@ -45,14 +44,17 @@ def shop_orders(request):
     context = {}
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
-    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    items, _shop_orders = OrderItem.objects.filter(product__shop_id=shop.id), [item.order for item in OrderItem.objects.filter(product__shop_id=shop.id)]
     shop_products = Product.objects.filter(shop_id=shop.id)
+    _customers = list(set([order.customer for order in _shop_orders]))
 
+    context["orders_count"] = len(_shop_orders)
+    context["customers_count"] = len(_customers)
     context["products"] = shop_products
     context["orders"] = _shop_orders
+    context["customers"] = _customers
     context["shop"] = shop
     context["owner"] = user
-    context["shop_orders"] = _shop_orders
     return render(request, 'shop/orders.html', context)
 
 
@@ -61,10 +63,14 @@ def dashboard(request):
     context = {}
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
-    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    items, _shop_orders = OrderItem.objects.filter(product__shop_id=shop.id), [item.order for item in OrderItem.objects.filter(product__shop_id=shop.id)]
     shop_products = Product.objects.filter(shop_id=shop.id)
+    _customers = list(set([order.customer for order in _shop_orders]))
 
+    context["orders_count"] = len(_shop_orders)
+    context["customers_count"] = len(_customers)
     context["products"] = shop_products
+    context["customers"] = _customers
     context["orders"] = _shop_orders
     context["shop"] = shop
     context["owner"] = user
@@ -77,10 +83,14 @@ def add_product(request):
     categories = SubCategory.objects.all()
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
-    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    items, _shop_orders = OrderItem.objects.filter(product__shop_id=shop.id), [item.order for item in OrderItem.objects.filter(product__shop_id=shop.id)]
     shop_products = Product.objects.filter(shop_id=shop.id)
+    _customers = list(set([order.customer for order in _shop_orders]))
 
+    context["orders_count"] = len(_shop_orders)
+    context["customers_count"] = len(_customers)
     context["products"] = shop_products
+    context["customers"] = _customers
     context["orders"] = _shop_orders
     context["shop"] = shop
     context["owner"] = user
@@ -113,10 +123,14 @@ def products(request):
     context = {}
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
-    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    items, _shop_orders = OrderItem.objects.filter(product__shop_id=shop.id), [item.order for item in OrderItem.objects.filter(product__shop_id=shop.id)]
     shop_products = Product.objects.filter(shop_id=shop.id)
+    _customers = list(set([order.customer for order in _shop_orders]))
 
+    context["orders_count"] = len(_shop_orders)
+    context["customers_count"] = len(_customers)
     context["products"] = shop_products
+    context["customers"] = _customers
     context["orders"] = _shop_orders
     context["shop"] = shop
     context["owner"] = user
@@ -128,12 +142,40 @@ def customers(request):
     context = {}
     user = request.user
     shop = Shop.objects.get(owner_id=user.id)
-    _shop_orders = Order.objects.filter(order_item__product__shop_id=shop.id)
+    items, _shop_orders = OrderItem.objects.filter(product__shop_id=shop.id), [item.order for item in OrderItem.objects.filter(product__shop_id=shop.id)]
     shop_products = Product.objects.filter(shop_id=shop.id)
+    _customers = list(set([order.customer for order in _shop_orders]))
 
+    context["orders_count"] = len(_shop_orders)
+    context["customers_count"] = len(_customers)
+    context["customers"] = _customers
     context["products"] = shop_products
     context["orders"] = _shop_orders
     context["shop"] = shop
     context["owner"] = user
 
     return render(request, 'shop/customers.html', context)
+
+
+def order_detail(request, pk):
+    context = {}
+    user = request.user
+    shop = Shop.objects.get(owner_id=user.id)
+    items, _shop_orders = OrderItem.objects.filter(product__shop_id=shop.id), [item.order for item in OrderItem.objects.filter(product__shop_id=shop.id)]
+    shop_products = Product.objects.filter(shop_id=shop.id)
+    _customers = list(set([order.customer for order in _shop_orders]))
+
+    order = Order.objects.get(pk=pk)
+    order_items = OrderItem.objects.filter(order_id=pk)
+
+    context["order"] = order
+    context["order_items"] = order_items
+
+    context["orders_count"] = len(_shop_orders)
+    context["customers_count"] = len(_customers)
+    context["customers"] = _customers
+    context["products"] = shop_products
+    context["orders"] = _shop_orders
+    context["shop"] = shop
+    context["owner"] = user
+    return render(request, 'shop/order-detail.html', context)
