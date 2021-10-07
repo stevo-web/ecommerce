@@ -11,7 +11,7 @@
                     </div>
 
                     <div class="box-body">
-                        <form method="POST">
+                        <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <div class="pt-1 m-2">

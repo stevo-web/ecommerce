@@ -42,12 +42,13 @@ class Order(models.Model):
     transport = models.CharField(max_length=20)
     status = models.CharField(max_length=20, choices=(
         ('pending', 'pending'),
+        ('in Transit', 'in Transit'),
         ('delivered', 'delivered')
     ))
     paid = models.BooleanField(default=False)
     total = models.FloatField()
     made_on = models.DateTimeField(auto_now_add=True)
-    estimated = models.CharField(max_length=100)
+    estimated = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.id}'

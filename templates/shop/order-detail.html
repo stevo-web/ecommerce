@@ -1,0 +1,50 @@
+{% extends 'shop/base.html'%}
+{% load static %}
+
+{% block content %}
+    <section class="content">
+        <div class="row">
+            <div class=" col-md-10 box box-primary">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box">
+                            <h4>Products in Order</h4>
+                            <div class="box box-info box-body">
+                              <ul class="products-list product-list-in-box">
+                                {% for item in order_items %}
+                                <li class="item">
+                                  <div class="product-img">
+                                    <img src="{{ item.product.image.url }}" alt="Product Image">
+                                  </div>
+                                  <div class="product-info">
+                                    <a href="#" class="product-title">{{ item.product.name }} <span class="label label-warning pull-right">{{ prod.price }}</span></a>
+                                    <span class="product-description">
+                                      Quantity: {{ item.quantity }}
+                                    </span>
+                                  </div>
+                                </li><!-- /.item -->
+                                  {% endfor %}
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="box">
+                            <h4>Update Order</h4>
+                            <div class="box-info box-body">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <div class="m-2">
+                                        <input type="submit" value="Update Order" class="btn btn-info">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

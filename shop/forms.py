@@ -1,5 +1,16 @@
 from django.forms import ModelForm
-from main.models import Product
+from main.models import Product, Order
+
+
+class OrderForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ("status", "transport",)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["status"].widget.attrs.update({'class': 'form-control validate'})
+        self.fields["transport"].widget.attrs.update({'class': 'form-control validate'})
 
 
 class AddProductForm(ModelForm):

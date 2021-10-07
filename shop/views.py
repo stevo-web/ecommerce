@@ -1,12 +1,12 @@
 from django.shortcuts import redirect, render
 from main.models import Product, SubCategory, Category
-from django.contrib import messages
+from django.contrib.auth import get_user_model
 from .models import Shop
 from main.models import SubCategory
 from django.contrib.auth.decorators import login_required
 from main.models import Order, OrderItem
 from Kenya.counties import counties
-from .forms import AddProductForm
+from .forms import AddProductForm, OrderForm
 from cart.cart import Cart
 import time
 
@@ -66,6 +66,20 @@ def dashboard(request):
     items, _shop_orders = OrderItem.objects.filter(product__shop_id=shop.id), [item.order for item in OrderItem.objects.filter(product__shop_id=shop.id)]
     shop_products = Product.objects.filter(shop_id=shop.id)
     _customers = list(set([order.customer for order in _shop_orders]))
+
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    data = []
+
+    for month_no, month in enumerate(months, start=1):
+        month_order_count = 0
+        for order in _shop_orders:
+            if order.made_on.month == month_no:
+                month_order_count += 1
+        data.append(month_order_count)
+
+    context["months"] = months
+    context["data"] = data
 
     context["orders_count"] = len(_shop_orders)
     context["customers_count"] = len(_customers)
@@ -168,6 +182,14 @@ def order_detail(request, pk):
     order = Order.objects.get(pk=pk)
     order_items = OrderItem.objects.filter(order_id=pk)
 
+    #form
+    form = OrderForm()
+    if request.POST:
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+
+    context["form"] = form
     context["order"] = order
     context["order_items"] = order_items
 

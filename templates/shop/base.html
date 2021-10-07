@@ -80,29 +80,22 @@
 {#                </li>#}
                 <!-- Tasks: style can be found in dropdown.less -->
                 <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="user-image" alt="User Image"/>
-                    <span class="hidden-xs">{{ owner.firstname }}</span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <!-- User image -->
-                    <li class="user-header">
-                      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="img-circle" alt="User Image" />
-                      <p>
-                        {{ owner.firstname }} {{ owner.lastname }}
-                         Admin @  {{ shop.name }}
-
-                      </p>
-                    </li>
-                    <!-- Menu Body -->
-                    <!-- Menu Footer-->
-                    <li class="user-footer">
-                      <div class="pull-right">
-                        <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sign out</a>
-                      </div>
-                    </li>
-                  </ul>
+                <li class="">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-user"></i>
+                    </a>
+                    {% if user.is_authenticated %}
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        {#              <a class="dropdown-item" href="#">Dashboard</a>#}
+        {#              <a class="dropdown-item" href="#">Edit Profile</a>#}
+                      <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                        {% else %}
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                      <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                    </div>
+                    {% endif %}
                 </li>
               </ul>
             </div>
