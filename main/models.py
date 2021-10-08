@@ -39,14 +39,14 @@ class Order(models.Model):
     address = models.CharField(max_length=60)
     location = models.CharField(max_length=60)
     payment = models.CharField(max_length=20)
-    transport = models.CharField(max_length=20)
+    transport = models.CharField(max_length=20, blank=True, null=True)
     status = models.CharField(max_length=20, choices=(
         ('pending', 'pending'),
         ('in Transit', 'in Transit'),
         ('delivered', 'delivered')
     ))
     paid = models.BooleanField(default=False)
-    total = models.FloatField()
+    total = models.FloatField(blank=True, null=True)
     made_on = models.DateTimeField(auto_now_add=True)
     estimated = models.DateTimeField(blank=True, null=True)
 

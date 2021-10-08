@@ -12,7 +12,7 @@ payment_choices = (
 
 
 class CheckoutForm(forms.Form):
+    email = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'email', 'placeholder': 'Valid Email'}))
     address = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    county = forms.ChoiceField(widget=forms.Select(attrs={'class': 'custom-select d-block w-80 form-control'}),
-                               choices=counties_choices)
+    location = forms.ChoiceField(widget=forms.Select(attrs={'class': ' w-80 form-control'}), choices=counties_choices)
     payment = forms.ChoiceField(widget=forms.RadioSelect, choices=payment_choices)

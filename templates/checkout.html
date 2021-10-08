@@ -20,36 +20,36 @@
           <div class="card bg-dark">
 
             <!--Card content-->
-            <form class="card-body">
-
+            <form class="card-body" method="POST">
+                {% csrf_token %}
               <!--Grid row-->
-              <div class="row">
-
-                <!--Grid column-->
-                <div class="col-md-6 mb-2">
-
-                  <!--firstName-->
-                  <div class="md-form ">
-                    <input type="text" id="firstName" class="form-control">
-                    <label for="firstName" class="">First name</label>
-                  </div>
-
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-md-6 mb-2">
-
-                  <!--lastName-->
-                  <div class="md-form">
-                    <input type="text" id="lastName" class="form-control">
-                    <label for="lastName" class="">Last name</label>
-                  </div>
-
-                </div>
-                <!--Grid column-->
-
-              </div>
+{#              <div class="row">#}
+{##}
+{#                <!--Grid column-->#}
+{#                <div class="col-md-6 mb-2">#}
+{##}
+{#                  <!--firstName-->#}
+{#                  <div class="md-form ">#}
+{#                    <input type="text" id="firstName" class="form-control">#}
+{#                    <label for="firstName" class="">First name</label>#}
+{#                  </div>#}
+{##}
+{#                </div>#}
+{#                <!--Grid column-->#}
+{##}
+{#                <!--Grid column-->#}
+{#                <div class="col-md-6 mb-2">#}
+{##}
+{#                  <!--lastName-->#}
+{#                  <div class="md-form">#}
+{#                    <input type="text" id="lastName" class="form-control">#}
+{#                    <label for="lastName" class="">Last name</label>#}
+{#                  </div>#}
+{##}
+{#                </div>#}
+{#                <!--Grid column-->#}
+{##}
+{#              </div>#}
               <!--Grid row-->
 
               <!--Username-->
@@ -57,7 +57,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
-                <input type="email" class="form-control py-0" placeholder="Valid Email" aria-describedby="basic-addon1">
+               {{ form.email }}
               </div>
 
 {#              <!--email-->#}
@@ -68,14 +68,14 @@
 
               <!--address-->
               <div class="md-form mb-5">
-                <input type="text" id="address" class="form-control" placeholder="1234 Main St">
-                <label for="address" class="">Address</label>
+                  {{ form.location }}
+                <label for="address" class=""></label>
               </div>
 
               <!--address-2-->
               <div class="md-form mb-5">
-                <input type="text" id="address-2" class="form-control" placeholder="Apartment or suite">
-                <label for="address-2" class="">Address 2 (optional)</label>
+                {{ form.address }}
+                <label for="address-2" class="">Address </label>
               </div>
 
 {#              <!--Grid row-->#}
@@ -141,18 +141,19 @@
 
               <div class="d-block my-3">
                 <div class="custom-control custom-radio">
-                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                  <label class="custom-control-label" for="credit">Mpesa</label>
+{#                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>#}
+                    {{ form.payment }}
+{#                  <label class="custom-control-label" for="credit">Mpesa</label>#}
                 </div>
 {#                <div class="custom-control custom-radio">#}
 {#                  <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>#}
 {#                  <label class="custom-control-label" for="debit">Debit card</label>#}
 {#                </div>#}
-                <div class="custom-control custom-radio">
-                  <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                  <label class="custom-control-label" for="paypal">Paypal</label>
-                </div>
-              </div>
+{#                <div class="custom-control custom-radio">#}
+{#                  <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>#}
+{#                  <label class="custom-control-label" for="paypal">Paypal</label>#}
+{#                </div>#}
+{#              </div>#}
 {#              <div class="row">#}
 {#                <div class="col-md-6 mb-3">#}
 {#                  <label for="cc-name">Name on card</label>#}
@@ -188,7 +189,7 @@
 {#              </div>#}
               <hr class="mb-4">
               <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-
+              </div>
             </form>
 
           </div>

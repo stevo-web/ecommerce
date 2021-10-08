@@ -18,13 +18,17 @@
         <tbody>
         {% for item in cart %}
             <tr>
-            <td class="col-sm-8 col-md-6">
+            <td class="col-sm-6 col-md-8">
             <div class="media">
             <a class="thumbnail pull-left" href="{% url 'products' item.product.id %}"> <img class="media-object" src="{{ item.product.image.url }}" style="width: 72px; height: 72px;"> </a>
             </div>
             </td>
-            <td class="col-sm-1 col-md-1" style="text-align: center">
-            <input type="email" class="form-control"  value="{{ item.quantity }}">
+            <td class="col-sm-6 col-md-6" style="text-align: center">
+                <div class="row btn-group-sm">
+                    <a href="{% url 'update_minus' item.product.id item.quantity %}" style="border: solid 2px; margin: 0px; padding: 5px; color: white;" class="border-info rounded">-</a>
+                    <h5 class="px-2">{{ item.quantity }}</h5>
+                    <a href="{% url 'update_plus' item.product.id item.quantity %}" style="border: solid 2px; margin: 0px; padding: 5px; color: white;" class="border-info rounded">+</a>
+                </div>
             </td>
             <td class="col-sm-1 col-md-1 text-center"><strong>ksh {{ item.unit_price }}</strong></td>
             <td class="col-sm-1 col-md-1 text-center"><strong>ksh {{ item.total_price }}</strong></td>

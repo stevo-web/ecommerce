@@ -2,6 +2,7 @@ import random
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import CheckoutForm
 
@@ -137,7 +138,6 @@ def cart_list(request):
     return render(request, 'cart.html', context)
 
 
-
 def checkout(request):
     context = {}
     cart = Cart(request)
@@ -150,8 +150,31 @@ def checkout(request):
             address = form.cleaned_data['address']
             location = form.cleaned_data['location']
             payment = form.cleaned_data['payment']
+            email = form.cleaned_data['email']
 
-            print(f'{ address } , {location} , {payment}')
+            order = Order.objects.create(
+                customer=request.user,
+                address=address,
+                location=location,
+                payment=payment,
+                status='pending',
+                total=cart.summary()
+            )
+            order.save()
+            for item in cart:
+                order_item = OrderItem.objects.create(
+                    order_id=order.id,
+                    product_id=item.product.id,
+                    quantity=item.quantity,
+                    unit_price=item.unit_price
+                )
+                order_item.save()
+
+                messages.info(request, 'your Order was received')
+
+                return redirect('home') #TODO create a user dash
+            #TODO payment method
+
     context["form"] = form
     return render(request, 'checkout.html', context)
 
@@ -164,10 +187,22 @@ def add_cart(request, prod_id, quantity):
     return redirect('home')
 
 
-def update(request, prod_id, quantity):
+def update_plus(request, prod_id, quantity):
     cart = Cart(request)
     prod = Product.objects.get(pk=prod_id)
-    cart.update(prod, quantity, prod.price)
+    cart.update(prod, str(int(quantity) + 1), prod.price)
+    messages.info(request, 'cart was updated')
+    return redirect('cart')
+
+
+def update_minus(request, prod_id, quantity):
+    cart = Cart(request)
+    prod = Product.objects.get(pk=prod_id)
+    if int(quantity) == 1:
+        cart.remove(prod)
+        messages.info(request, 'item was removed from cart')
+        return redirect('cart')
+    cart.update(prod, str(int(quantity) - 1), prod.price)
     messages.info(request, 'cart was updated')
     return redirect('cart')
 

@@ -57,6 +57,13 @@ def login(request):
     return render(request, 'login.html', context)
 
 
+def dashboard(request):
+    context = {}
+    user = request.user
+
+    return render(request, 'customer-dashboard.html', context)
+
+
 def logout(request):
     _logout(request)
     return redirect('home')
