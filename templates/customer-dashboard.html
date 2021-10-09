@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static  %}
 
-</body>
-</html>
+{% block content%}
+    {% include 'partials/nav.html' %}
+        <div style="height: auto" class="container bg-dark">
+            <hr>
+            <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Your Orders</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table no-margin text-white-50">
+                      <thead>
+                        <tr>
+                          <th>Order Track ID</th>
+                            <th>Total</th>
+                            <th>ETA</th>
+                          <th>Made On</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for order in orders %}
+                        <tr>
+                          <td><a class="text-white" href="{% url 'customer-order-detail' order.id %}">#{{ order.id }}</a></td>
+                            <td> {{ order.total }}</td>
+                            <td> {{ order.estimated }}</td>
+                          <td>{{ order.made_on }}</td>
+                          <td><span class="label label-success">{{ order.status }}</span></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                </div><!-- /.box-footer -->
+              </div>
+        </div>
+    {% include 'partials/footer.html' %}
+{% endblock %}

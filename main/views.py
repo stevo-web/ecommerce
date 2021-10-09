@@ -172,7 +172,7 @@ def checkout(request):
 
                 messages.info(request, 'your Order was received')
 
-                return redirect('home') #TODO create a user dash
+                return redirect('customer-dash')
             #TODO payment method
 
     context["form"] = form

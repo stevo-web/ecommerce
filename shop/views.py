@@ -180,7 +180,7 @@ def order_detail(request, pk):
     _customers = list(set([order.customer for order in _shop_orders]))
 
     order = Order.objects.get(pk=pk)
-    order_items = OrderItem.objects.filter(order_id=pk)
+    order_items = OrderItem.objects.filter(product__shop_id=shop.id, order_id=order.id)
 
     #form
     form = OrderForm()

@@ -1,10 +1,10 @@
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout as _logout, login as _login
 from django.contrib import messages
 from cart.cart import Cart
 from Kenya.counties import counties
 from .models import User
+from main.models import Order, OrderItem
 
 county_list = [county["name"] for county in counties]
 
@@ -60,8 +60,18 @@ def login(request):
 def dashboard(request):
     context = {}
     user = request.user
-
+    context["orders"] = Order.objects.filter(customer_id=user.id).order_by('-made_on')
+    context["order_items"] = OrderItem.objects.filter(order__customer_id=user.id)
     return render(request, 'customer-dashboard.html', context)
+
+
+def order_detail(request, pk):
+    context = {}
+    order = Order.objects.get(pk=pk)
+    order_items = OrderItem.objects.filter(order_id=order.id)
+    context["order"] = order
+    context["order_items"] = order_items
+    return render(request, 'cus-order-detail.html', context)
 
 
 def logout(request):
